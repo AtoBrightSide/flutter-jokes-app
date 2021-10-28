@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<Joke> fetchJoke() async {
-  final response = await http
-      .get(Uri.parse('https://v2.jokeapi.dev/joke/Dark'));
+  final response = await http.get(Uri.parse('https://v2.jokeapi.dev/joke/Pun'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,

@@ -33,46 +33,58 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: new Color(0xFFFF9000),
         ),
+        drawer: Drawer(
+          child: new Column(
+            children: [
+              Container(
+                height: 50,
+                color: Colors.amber,
+              )
+            ],
+          ),
+        ),
         body: new Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                children: [
-                  FutureBuilder<Joke>(
-                    future: futureJoke,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            new Text(
-                              snapshot.data!.setup,
-                              style: TextStyle(
-                                color: Colors.white,
-                                // fontSize: 32,
-                                fontWeight: FontWeight.bold,
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FutureBuilder<Joke>(
+                      future: futureJoke,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Column(
+                            children: [
+                              new Text(
+                                snapshot.data!.setup,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  // fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            new Text(
-                              snapshot.data!.delivery,
-                              style: TextStyle(
-                                color: Colors.white,
-                                // fontSize: 32,
-                                fontWeight: FontWeight.bold,
+                              new Text(
+                                snapshot.data!.delivery,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  // fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
-                      }
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
 
-                      // By default, show a loading spinner.
-                      return const CircularProgressIndicator();
-                    },
-                  ),
-                ],
+                        // By default, show a loading spinner.
+                        return const CircularProgressIndicator();
+                      },
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
