@@ -9,4 +9,5 @@ class Repository {
 
   Future<JokeModel> fetchRandomJoke() => provider.fetchRandomJoke();
   Future<CategoryModel> getCategories() => provider.getCategories();
+  Future<JokesModel> fetchCategoryJokes(String category) => provider.fetchCategoryJokes(category);
 }

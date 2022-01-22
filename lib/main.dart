@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_joker/ui/categories.dart';
+import 'package:the_joker/ui/category_jokes.dart';
 import 'package:the_joker/ui/home.dart';
 
 void main() {
@@ -16,6 +17,9 @@ class App extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => HomePage(),
         Categories.routeName: (context) => Categories(),
+        CategoryJokes.routeName: (context) => CategoryJokes(
+              category: '',
+            ),
       },
     );
   }

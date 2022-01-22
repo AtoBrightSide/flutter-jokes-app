@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_joker/components/drawer.dart';
-import 'package:the_joker/ui/jokes.dart';
+import 'package:the_joker/ui/joke.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = "/";
@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Jokes"),
+        title: Center(child: Text("Jokes")),
       ),
       drawer: myDrawer(context),
       body: RandomJoke(),

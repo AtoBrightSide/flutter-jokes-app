@@ -1,21 +1,21 @@
+import 'package:the_joker/models/joke_model.dart';
 import 'package:the_joker/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:the_joker/models/joke_model.dart';
 
-class JokeBloc {
+class JokesBloc {
   final _repository = Repository();
-  final _jokeFetcher = PublishSubject<JokeModel>();
+  final _jokesFetcher = PublishSubject<JokesModel>();
 
-  Observable<JokeModel> get randomJoke => _jokeFetcher.stream;
+  Observable<JokesModel> get categoryJokes => _jokesFetcher.stream;
 
-  fetchRandomJoke() async {
-    JokeModel jokeModel = await _repository.fetchRandomJoke();
-    _jokeFetcher.sink.add(jokeModel);
+  fetchCategoryJokes(String category) async {
+    JokesModel jokeModel = await _repository.fetchCategoryJokes(category);
+    _jokesFetcher.sink.add(jokeModel);
   }
 
   dispose() {
-    _jokeFetcher.close();
+    _jokesFetcher.close();
   }
 }
 
-final bloc = JokeBloc();
+final bloc = JokesBloc();

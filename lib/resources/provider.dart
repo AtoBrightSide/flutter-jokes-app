@@ -10,7 +10,7 @@ class Provider {
   Future<JokeModel> fetchRandomJoke() async {
     print("entered");
     final response =
-        await client.get(Uri.parse("https://v2.jokeapi.dev/joke/Any"));
+        await client.get(Uri.parse("https://v2.jokeapi.dev/joke/Any/twopart"));
     print(response.body.toString());
     if (response.statusCode == 200) {
       return JokeModel.fromJson(json.decode(response.body));
@@ -25,6 +25,16 @@ class Provider {
       return CategoryModel.fromJson(json.decode(response.body));
     } else {
       throw Exception("Failed to load categories");
+    }
+  }
+
+  Future<JokesModel> fetchCategoryJokes(String category) async {
+    print("$category jokes");
+    final response = await client.get(Uri.parse("https://v2.jokeapi.dev/joke/$category?amount=10"));
+    if (response.statusCode == 200) {
+      return JokesModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to load jokes from this category");
     }
   }
 }
