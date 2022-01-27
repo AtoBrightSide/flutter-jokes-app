@@ -26,31 +26,56 @@ class RandomJoke extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              snapshot.data!.setup.toString(),
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+        (snapshot.data!.type.toString() == "twopart")
+            ? (Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        snapshot.data!.setup.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        snapshot.data!.delivery.toString(),
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ],
+              ))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    snapshot.data!.joke.toString(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+        SizedBox(
+          height: 25,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              snapshot.data!.delivery.toString(),
-              style: TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
-        SizedBox(height: 25,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Icon(Icons.arrow_left, size: 50,),
-            Icon(Icons.favorite, size: 25,),
-            Icon(Icons.arrow_right, size: 50,),
+            Icon(
+              Icons.arrow_left,
+              size: 50,
+            ),
+            Icon(
+              Icons.favorite,
+              size: 25,
+            ),
+            Icon(
+              Icons.arrow_right,
+              size: 50,
+            ),
           ],
         )
       ],

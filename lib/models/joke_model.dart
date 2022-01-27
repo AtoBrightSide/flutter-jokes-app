@@ -20,6 +20,7 @@ class _Jokes {
   late bool _error;
   late String _category;
   late String _type;
+  late String _joke;
   late String _setup;
   late String _delivery;
   late bool _safe;
@@ -27,8 +28,13 @@ class _Jokes {
   _Jokes(joke) {
     _error = joke['error'];
     _type = joke['type'];
-    _setup = joke['setup'];
-    _delivery = joke['delivery'];
+    if (_type == "twopart") {
+      _setup = joke['setup'];
+      _delivery = joke['delivery'];
+    } else {
+      _joke = joke['joke'];
+    }
+
     _safe = joke['safe'];
     _category = joke['category'];
   }
@@ -36,6 +42,7 @@ class _Jokes {
   bool get error => _error;
   String get category => _category;
   String get type => _type;
+  String get joke => _joke;
   String get setup => _setup;
   String get delivery => _delivery;
   bool get safe => _safe;
@@ -45,6 +52,7 @@ class JokeModel {
   late bool _error;
   late String _category;
   late String _type;
+  late String _joke;
   late String _setup;
   late String _delivery;
   late bool _safe;
@@ -52,6 +60,12 @@ class JokeModel {
   JokeModel.fromJson(Map<String, dynamic> parsedJson) {
     _error = parsedJson['error'];
     _type = parsedJson['type'];
+    if (_type == "twopart") {
+      _setup = parsedJson['setup'];
+      _delivery = parsedJson['delivery'];
+    } else {
+      _joke = parsedJson['joke'];
+    }
     _setup = parsedJson['setup'];
     _delivery = parsedJson['delivery'];
     _safe = parsedJson['safe'];
@@ -61,6 +75,7 @@ class JokeModel {
   bool get error => _error;
   String get category => _category;
   String get type => _type;
+  String get joke => _joke;
   String get setup => _setup;
   String get delivery => _delivery;
   bool get safe => _safe;

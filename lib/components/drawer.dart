@@ -36,6 +36,13 @@ Widget myDrawer(BuildContext context) {
           leading: Icon(Icons.favorite),
           title: Text("Favorites"),
         ),
+        ListTile(
+          onTap: () {
+            Navigator.pushNamed(context, '/settings');
+          },
+          leading: Icon(Icons.settings),
+          title: Text("Settings"),
+        ),
       ],
     ),
   );

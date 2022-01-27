@@ -36,13 +36,17 @@ class CategoryJokes extends StatelessWidget {
   Widget show(AsyncSnapshot snapshot) {
     return ListView.builder(
       padding: EdgeInsets.all(5),
-      itemCount: snapshot.data!.jokes.length,
+      itemCount: snapshot.data!.amount,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           height: 100,
           child: ListTile(
-            title: Text(snapshot.data!.jokes[index].setup.toString()),
-            subtitle: Text(snapshot.data!.jokes[index].delivery.toString()),
+            title: (snapshot.data!.jokes[index].type.toString() == "twopart")
+                ? Text(snapshot.data!.jokes[index].setup.toString())
+                : Text(snapshot.data!.jokes[index].joke.toString()),
+            subtitle: (snapshot.data!.jokes[index].type.toString() == "twopart")
+                ? Text(snapshot.data!.jokes[index].delivery.toString())
+                : null,
             trailing: Icon(Icons.favorite),
           ),
         );
