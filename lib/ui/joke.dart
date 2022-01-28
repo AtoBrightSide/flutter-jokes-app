@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:the_joker/components/favorites_button.dart';
 import 'package:the_joker/models/joke_model.dart';
 import 'package:the_joker/blocs/joke_bloc.dart';
 
 class RandomJoke extends StatelessWidget {
   static const String routeName = "/random-joke";
+
+  myFetcher() {
+    bloc.fetchRandomJoke();
+  }
+
   @override
   Widget build(BuildContext context) {
-    bloc.fetchRandomJoke();
+    myFetcher();
     return StreamBuilder(
       stream: bloc.randomJoke,
       builder: (context, AsyncSnapshot<JokeModel> snapshot) {
@@ -64,20 +70,25 @@ class RandomJoke extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Icon(
-              Icons.arrow_left,
-              size: 50,
-            ),
-            Icon(
-              Icons.favorite,
-              size: 25,
-            ),
-            Icon(
-              Icons.arrow_right,
-              size: 50,
+            FavButton(
+              pressed: false,
             ),
           ],
-        )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              child: Icon(
+                Icons.autorenew,
+                size: 50,
+              ),
+              onTap: () {
+                myFetcher();
+              },
+            ),
+          ],
+        ),
       ],
     );
   }

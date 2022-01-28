@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_joker/blocs/jokes_bloc.dart';
 import 'package:the_joker/components/drawer.dart';
+import 'package:the_joker/components/favorites_button.dart';
 import 'package:the_joker/models/joke_model.dart';
 
 class CategoryJokes extends StatelessWidget {
@@ -47,7 +48,9 @@ class CategoryJokes extends StatelessWidget {
             subtitle: (snapshot.data!.jokes[index].type.toString() == "twopart")
                 ? Text(snapshot.data!.jokes[index].delivery.toString())
                 : null,
-            trailing: Icon(Icons.favorite),
+            trailing: FavButton(
+              pressed: false,
+            ),
           ),
         );
       },
