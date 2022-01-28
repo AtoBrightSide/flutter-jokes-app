@@ -31,7 +31,7 @@ Widget myDrawer(BuildContext context) {
         ),
         ListTile(
           onTap: () {
-            Navigator.pushNamed(context, '/favs');
+            Navigator.pushNamed(context, '/favorites');
           },
           leading: Icon(Icons.favorite),
           title: Text("Favorites"),

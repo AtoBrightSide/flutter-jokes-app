@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:the_joker/components/favorites_button.dart';
+import 'package:the_joker/models/fav_joke_model.dart';
 import 'package:the_joker/models/joke_model.dart';
 import 'package:the_joker/blocs/joke_bloc.dart';
+import 'package:path/path.dart';
 
 class RandomJoke extends StatelessWidget {
   static const String routeName = "/random-joke";
@@ -25,6 +28,22 @@ class RandomJoke extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       },
+    );
+  }
+
+  Future<void> addJoke(FavJoke favJoke) async {
+    final database = openDatabase(
+      join(
+        await getDatabasesPath(),
+        "favorite_jokes.db",
+      ),
+    );
+    final db = await database;
+
+    await db.insert(
+      'fav_jokes',
+      favJoke.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -70,9 +89,21 @@ class RandomJoke extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            FavButton(
-              pressed: false,
-            ),
+            InkWell(
+              onTap: () {
+                addJoke(
+                  FavJoke(
+                      id: snapshot.data!.id,
+                      type: snapshot.data!.type.toString(),
+                      setup: snapshot.data!.setup.toString(),
+                      delivery: snapshot.data!.delivery.toString(),
+                      joke: snapshot.data!.joke.toString()),
+                );
+              },
+              child: FavButton(
+                pressed: false,
+              ),
+            )
           ],
         ),
         Row(

@@ -9,6 +9,7 @@ class FavButton extends StatefulWidget {
 
 class _FavButtonState extends State<FavButton> {
   late bool pressed;
+  late String joke;
   @override
   void initState() {
     pressed = widget.pressed;

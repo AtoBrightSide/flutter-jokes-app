@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:the_joker/blocs/jokes_bloc.dart';
 import 'package:the_joker/components/drawer.dart';
 import 'package:the_joker/components/favorites_button.dart';
+import 'package:path/path.dart';
+import 'package:the_joker/models/fav_joke_model.dart';
 import 'package:the_joker/models/joke_model.dart';
 
 class CategoryJokes extends StatelessWidget {
@@ -34,6 +37,22 @@ class CategoryJokes extends StatelessWidget {
     );
   }
 
+  Future<void> addJoke(FavJoke favJoke) async {
+    final database = openDatabase(
+      join(
+        await getDatabasesPath(),
+        "favorite_jokes.db",
+      ),
+    );
+    final db = await database;
+
+    await db.insert(
+      'fav_jokes',
+      favJoke.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
   Widget show(AsyncSnapshot snapshot) {
     return ListView.builder(
       padding: EdgeInsets.all(5),
@@ -48,8 +67,20 @@ class CategoryJokes extends StatelessWidget {
             subtitle: (snapshot.data!.jokes[index].type.toString() == "twopart")
                 ? Text(snapshot.data!.jokes[index].delivery.toString())
                 : null,
-            trailing: FavButton(
-              pressed: false,
+            trailing: InkWell(
+              onTap: () {
+                addJoke(
+                  FavJoke(
+                      id: snapshot.data!.jokes[index].id,
+                      type: snapshot.data!.jokes[index].type.toString(),
+                      setup: snapshot.data!.jokes[index].setup.toString(),
+                      delivery: snapshot.data!.jokes[index].delivery.toString(),
+                      joke: snapshot.data!.jokes[index].joke.toString()),
+                );
+              },
+              child: FavButton(
+                pressed: false,
+              ),
             ),
           ),
         );

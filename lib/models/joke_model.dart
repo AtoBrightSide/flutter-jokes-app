@@ -17,6 +17,7 @@ class JokesModel {
 }
 
 class _Jokes {
+  late int _id;
   late bool _error;
   late String _category;
   late String _type;
@@ -26,6 +27,7 @@ class _Jokes {
   late bool _safe;
 
   _Jokes(joke) {
+    _id = joke['id'];
     _error = joke['error'];
     _type = joke['type'];
     if (_type == "twopart") {
@@ -38,7 +40,7 @@ class _Jokes {
     _safe = joke['safe'];
     _category = joke['category'];
   }
-
+  int get id => _id;
   bool get error => _error;
   String get category => _category;
   String get type => _type;
@@ -49,6 +51,7 @@ class _Jokes {
 }
 
 class JokeModel {
+  late int _id;
   late bool _error;
   late String _category;
   late String _type;
@@ -58,6 +61,7 @@ class JokeModel {
   late bool _safe;
 
   JokeModel.fromJson(Map<String, dynamic> parsedJson) {
+    _id = parsedJson['id'];
     _error = parsedJson['error'];
     _type = parsedJson['type'];
     if (_type == "twopart") {
@@ -72,6 +76,7 @@ class JokeModel {
     _category = parsedJson['category'];
   }
 
+  int get id => _id;
   bool get error => _error;
   String get category => _category;
   String get type => _type;
